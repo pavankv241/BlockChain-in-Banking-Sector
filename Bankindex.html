@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Bank</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' type='text/css' media='screen' href='Bank.css'>
+    
+</head>
+<body id="body">
+    <div class="mainContainer">
+      
+       <div class="top">
+
+        <img src="icp.jpeg" id="icp">
+        
+        <nav id="bank">Bank</nav>
+		<button class="btn btn-success"  id="bal" onclick="Connect()">Connect</button>
+       </div>
+         <div class="main">
+         <div class="Container0">
+          &nbsp;&nbsp;&nbsp;&nbsp;<span id="ac">Account Holder : </span>&nbsp;&nbsp;&nbsp;<input type="text" required id="customerName">
+        </div>
+        <div class="Container1" >
+          &nbsp;&nbsp;&nbsp;&nbsp;<span id="amt">Amount : </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" id="deptAmt" >
+         </div>
+        <div class="Container2" >
+         <button class="btn btn-primary" id="depoist" onclick="Depoist()">Deposit</button>
+         <button class="btn btn-primary" id="withdraw" onclick="Withdraw()">WithDraw</button>
+       
+        </div>
+        <div class="Container3">
+			<button class="btn btn-success"  id="bal" onclick="getBal()" >Get Balance</button>
+			
+			<p id="balance"></p>
+        </div>
+        
+        
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/truffle-contract@4.0.31/dist/truffle-contract.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@3.0.0/dist/web3.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  
+ var contract;
+ var web3;
+ var audio = new Audio('apple pay tune.mp3');
+ 
+  async function Connect(){
+	  await window.web3.currentProvider.enable();
+	  web3 = new Web3(window.web3.currentProvider);
+  }
+
+  if(typeof web3 !== 'undefine'){
+	  web3 = new Web3(window.web3.currentProvider);
+  }
+
+  else{
+	  web3 = new Web3(new Web3.Provider.HttpProvider("http://127.0.0.1:7545"))
+  }
+  var address = '0xad31f3F933e8AA69B06aCE0EC5D2d509C532579B' ;
+  var abi =[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amt",
+				"type": "uint256"
+			}
+		],
+		"name": "depoist",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amt",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+  contract = new web3.eth.Contract(abi,address);
+  
+
+function Depoist(){
+	
+	web3.eth.getAccounts().then(function(account){
+		var acc = account[0];
+		var depAmt = document.getElementById("deptAmt").value;
+		 return contract.methods.depoist(depAmt).send({from : acc,gas: 3000000, gasPrice: null}).then(function(txn){
+			
+			audio.play();
+			swal({icon: "success", text : "Transaction Success"});
+			
+
+			
+			
+		}).catch(function(err){
+			swal({icon: "warning", text : "Transaction Failed"});
+		})
+	})
+
+	
+
+}
+
+function Withdraw(){
+	
+	web3.eth.getAccounts().then(function(account){
+		var acc = account[0];
+		var depAmt = document.getElementById("deptAmt").value;
+		 return contract.methods.withdraw(depAmt).send({from : acc,gas: 3000000, gasPrice: null}).then(function(txn){
+			audio.play();
+			swal({icon: "success", text : "Transaction Success"});
+			
+			
+		}).catch(function(err){
+			swal({icon: "warning", text : "Transaction Failed"});
+		})
+	})
+	}
+
+	function getBal(){
+		 contract.methods.getBalance().call().then(function(balance){
+			$('#balance').html("Balance: ₹ "+balance)
+		})
+	}
+
+</script>
+  
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+.top{
+width: 100%;
+height: 100px;
+background-color:rgba(192,192,192);
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+
+}
+
+
+ .top #icp{
+    border-radius: 60px;
+    width: 60px;
+    height: 60px;
+  
+    
+}
+
+
+#body{
+    background-image: url(BANK.jpg) ;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+#bank{
+    font-size: 70px;
+}
+
+.mainContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+   
+
+}
+
+
+
+.main{
+    background: #000;
+    color: aliceblue;
+    display: flex;
+    
+    flex-direction: column;
+border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    margin-top: 40px;
+   
+}
+
+.main > .Container0 > span{
+    font-size: 30px;
+
+}
+
+.main > .Container1 > span {
+    font-size: 30px;
+}
+
+.Container2{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Container2 > button {
+    width: 200px;
+}
+.Container3{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#bal{
+    width: 200px;
+    font-weight: 900;
+}
+
+.top > nav {
+
+    font-weight: 900;
+
+}
+
+.top{
+    border-bottom-left-radius: 20px ;
+    border-bottom-right-radius: 20px;
+}
+
+#ac,#amt {
+
+font-weight: 900;
+}
+
+#balance{
+    color: rgb(31, 233, 233);
+    font-weight: bolder;
+}
+ 
