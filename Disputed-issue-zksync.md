@@ -100,8 +100,6 @@ The issues below may be reported by other bots/wardens, but can be penalized/ign
 
 Total: 2559 instances over 93 issues
 
-
--------------------------------------------------------------------------------------------------------------------
 ## Disputed Issues
 
 The issues below may be reported by other bots/wardens, but can be penalized/ignored since either the rule or the specified instances are invalid
